@@ -24,7 +24,7 @@ public class BankServiceImpl implements BankServiceInterface {
     }
 
     @Override
-    public int withdraw(Account account, int amount) throws IllegalArgumentException {
+    public int withdraw(Account account, int amount) {
         if(account.getBalance() < amount) throw new IllegalArgumentException(FailureMessage.NOT_ENOUGH_BALANCE.getMessage());
         return account.decreaseBalance(amount);
     }
@@ -35,7 +35,7 @@ public class BankServiceImpl implements BankServiceInterface {
     }
 
     @Override
-    public int transfer(int amount, Account from, Account to) throws IllegalArgumentException {
+    public int transfer(int amount, Account from, Account to) {
         if(from.getBalance() < amount) throw new IllegalArgumentException(FailureMessage.NOT_ENOUGH_BALANCE.getMessage());
         int senderBalance = from.decreaseBalance(amount);
         to.increaseBalance(amount);
