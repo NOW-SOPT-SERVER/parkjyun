@@ -57,9 +57,7 @@ public class BankController {
 
     private void deposit() {
         try {
-            String name = inputView.getName();
-            int accountNumber = inputView.getAccountNumber();
-            Account account = bankServiceImpl.findByNameAndAccountNumber(name, accountNumber);
+            Account account = bankServiceImpl.findByNameAndAccountNumber(inputView.getName(), inputView.getAccountNumber());
             int depositAmount = inputView.getDepositAmount();
             outputView.printDepositMessage(depositAmount, bankServiceImpl.deposit(account, depositAmount));
         } catch (Exception e) {
@@ -69,9 +67,7 @@ public class BankController {
 
     private void withdraw() {
         try {
-            String name = inputView.getName();
-            int accountNumber = inputView.getAccountNumber();
-            Account account = bankServiceImpl.findByNameAndAccountNumber(name, accountNumber);
+            Account account = bankServiceImpl.findByNameAndAccountNumber(inputView.getName(), inputView.getAccountNumber());
             int withDrawAmount = inputView.getWithDrawAmount();
             outputView.printWithDrawMessage(withDrawAmount, bankServiceImpl.withdraw(account, withDrawAmount));
         } catch (Exception e) {
@@ -81,9 +77,7 @@ public class BankController {
 
     private void getBalance() {
         try {
-            String name = inputView.getName();
-            int accountNumber = inputView.getAccountNumber();
-            int balance = bankServiceImpl.getBalance(bankServiceImpl.findByNameAndAccountNumber(name, accountNumber));
+            int balance = bankServiceImpl.getBalance(bankServiceImpl.findByNameAndAccountNumber(inputView.getName(), inputView.getAccountNumber()));
             outputView.printBalanceMessage(balance);
         } catch (Exception e) {
             handleException(e);
