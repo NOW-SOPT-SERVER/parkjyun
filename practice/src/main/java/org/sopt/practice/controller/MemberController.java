@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/members")
@@ -31,5 +32,11 @@ public class MemberController {
         memberService.deleteMemberById(memberId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping
+    public ResponseEntity<List<MemberFindDto>> findMembers() {
+        return ResponseEntity.ok(memberService.findMembers());
+    }
+
 
 }
