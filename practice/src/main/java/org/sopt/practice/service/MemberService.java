@@ -9,6 +9,9 @@ import org.sopt.practice.service.dto.MemberFindDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -33,5 +36,9 @@ public class MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
         memberRepository.delete(member);
+    }
+
+    public List<MemberFindDto> findMembers() {
+        return memberRepository.findAll().stream().map(MemberFindDto::of).collect(Collectors.toList());
     }
 }
