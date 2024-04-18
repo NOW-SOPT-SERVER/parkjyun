@@ -1,4 +1,4 @@
-package com.example.carrotclone.service;
+package com.example.carrotclone.repository;
 
 import com.example.carrotclone.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

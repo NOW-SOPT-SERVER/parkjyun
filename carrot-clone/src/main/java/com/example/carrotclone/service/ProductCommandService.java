@@ -7,6 +7,7 @@ import com.example.carrotclone.entity.Member;
 import com.example.carrotclone.entity.Product;
 import com.example.carrotclone.entity.TradeType;
 import com.example.carrotclone.repository.MemberRepository;
+import com.example.carrotclone.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
