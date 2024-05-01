@@ -9,6 +9,7 @@ import org.sopt.practice.exception.NotFoundException;
 import org.sopt.practice.repository.BlogRepository;
 import org.sopt.practice.service.dto.BlogCreateRequest;
 import org.sopt.practice.service.dto.BlogTitleUpdateRequest;
+import org.sopt.practice.service.dto.response.BlogResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,17 @@ public class BlogService {
         blog.updateTitle(request.title());
     }
 
-    private Blog findById(Long blogId) {
+    protected Blog findById(Long blogId) {
         return blogRepository.findById(blogId).orElseThrow(() -> new NotFoundException(ErrorMessage.BLOG_NOT_FOUND));
+    }
+
+    public BlogResponse getBlog(Long blogId) {
+        Blog blog = findById(blogId);
+        return BlogResponse.of(blog.getMember(), blog);
+    }
+
+    protected boolean isBlogOwner(Long blogId, Long memberId) {
+        Member member = memberService.findById(memberId);
+        return blogRepository.existsByIdAndMember(blogId, member);
     }
 }

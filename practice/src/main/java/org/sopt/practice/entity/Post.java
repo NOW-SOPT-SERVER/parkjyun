@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.sopt.practice.service.dto.request.CreatePostRequest;
 
 @Entity
 @Getter
@@ -22,4 +23,14 @@ public class Post extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Blog blog;
+
+    public static Post of(CreatePostRequest request, Blog blog) {
+        return new Post(request.name(), request.content(), blog);
+    }
+
+    private Post(String name, String content, Blog blog) {
+        this.name = name;
+        this.content = content;
+        this.blog = blog;
+    }
 }
