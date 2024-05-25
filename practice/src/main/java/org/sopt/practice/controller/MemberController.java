@@ -11,18 +11,18 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/members")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping
+    @PostMapping("/members")
     public ResponseEntity createMember(@RequestBody MemberCreateDto memberCreate) {
         return ResponseEntity.created(URI.create(memberService.createMember(memberCreate))).build();
     }
 
-    @GetMapping("/{memberId}")
+    @GetMapping("/members/{memberId}")
     public ResponseEntity<MemberFindDto> findMemberById(@PathVariable("memberId") Long memberId) {
         return ResponseEntity.ok(memberService.findMemberById(memberId));
     }
@@ -37,6 +37,4 @@ public class MemberController {
     public ResponseEntity<List<MemberFindDto>> findMembers() {
         return ResponseEntity.ok(memberService.findMembers());
     }
-
-
 }
