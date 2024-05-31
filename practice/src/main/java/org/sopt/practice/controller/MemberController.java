@@ -2,12 +2,10 @@ package org.sopt.practice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.practice.service.MemberService;
-import org.sopt.practice.service.dto.MemberCreateDto;
-import org.sopt.practice.service.dto.MemberFindDto;
+import org.sopt.practice.service.dto.response.MemberFindDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -16,11 +14,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
-    @PostMapping("/members")
-    public ResponseEntity createMember(@RequestBody MemberCreateDto memberCreate) {
-        return ResponseEntity.created(URI.create(memberService.createMember(memberCreate))).build();
-    }
 
     @GetMapping("/members/{memberId}")
     public ResponseEntity<MemberFindDto> findMemberById(@PathVariable("memberId") Long memberId) {

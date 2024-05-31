@@ -8,7 +8,7 @@ import org.sopt.practice.repository.BlogRepository;
 import org.sopt.practice.repository.MemberRepository;
 import org.sopt.practice.service.BlogService;
 import org.sopt.practice.service.MemberService;
-import org.sopt.practice.service.dto.BlogCreateRequest;
+import org.sopt.practice.service.dto.request.BlogCreateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

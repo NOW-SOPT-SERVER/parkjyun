@@ -2,12 +2,12 @@ package org.sopt.practice.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.sopt.practice.auth.PrincipalHandler;
 import org.sopt.practice.common.dto.SuccessMessage;
 import org.sopt.practice.common.dto.SuccessStatusResponse;
-import org.sopt.practice.controller.headers.Headers;
 import org.sopt.practice.service.BlogService;
-import org.sopt.practice.service.dto.BlogCreateRequest;
-import org.sopt.practice.service.dto.BlogTitleUpdateRequest;
+import org.sopt.practice.service.dto.request.BlogCreateRequest;
+import org.sopt.practice.service.dto.request.BlogTitleUpdateRequest;
 import org.sopt.practice.service.dto.response.BlogResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class BlogController {
 
     private final BlogService blogService;
+    private final PrincipalHandler principalHandler;
 
     @GetMapping("/blogs/{blogId}")
     ResponseEntity<SuccessStatusResponse<BlogResponse>> getBlog(@PathVariable final Long blogId) {
@@ -26,9 +27,11 @@ public class BlogController {
     }
 
     @PostMapping("/blogs")
-    ResponseEntity<SuccessStatusResponse> createBlog(@RequestBody final BlogCreateRequest request,
-                                                     @RequestHeader(name = Headers.MEMBER_ID) Long memberId) {
-        return ResponseEntity.status(HttpStatus.CREATED).header("Location", blogService.create(memberId, request))
+    ResponseEntity<SuccessStatusResponse> createBlog(@RequestBody final BlogCreateRequest request) {
+        Long id = principalHandler.getUserIdFromPrincipal();
+        System.out.println(id);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("Location", blogService.create(id, request))
                 .body(SuccessStatusResponse.of(SuccessMessage.BLOG_CREATE_SUCCESS));
     }
 

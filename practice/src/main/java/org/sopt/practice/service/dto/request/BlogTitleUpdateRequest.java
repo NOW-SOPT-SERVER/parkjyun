@@ -1,4 +1,4 @@
-package org.sopt.practice.service.dto;
+package org.sopt.practice.service.dto.request;
 
 import jakarta.validation.constraints.Size;
 

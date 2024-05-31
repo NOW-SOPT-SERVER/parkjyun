@@ -1,4 +1,4 @@
-package org.sopt.practice.service.dto;
+package org.sopt.practice.service.dto.response;
 
 import org.sopt.practice.entity.Member;
 import org.sopt.practice.entity.Part;

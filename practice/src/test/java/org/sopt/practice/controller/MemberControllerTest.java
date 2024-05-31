@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.sopt.practice.entity.Part;
 import org.sopt.practice.repository.MemberRepository;
 import org.sopt.practice.service.MemberService;
-import org.sopt.practice.service.dto.MemberCreateDto;
+import org.sopt.practice.service.dto.request.MemberCreateDto;
 import org.sopt.practice.settings.ApiTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

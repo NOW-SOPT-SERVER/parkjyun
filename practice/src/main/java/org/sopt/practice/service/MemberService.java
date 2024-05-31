@@ -6,8 +6,7 @@ import org.sopt.practice.common.dto.ErrorMessage;
 import org.sopt.practice.entity.Member;
 import org.sopt.practice.exception.NotFoundException;
 import org.sopt.practice.repository.MemberRepository;
-import org.sopt.practice.service.dto.MemberCreateDto;
-import org.sopt.practice.service.dto.MemberFindDto;
+import org.sopt.practice.service.dto.response.MemberFindDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +19,6 @@ import java.util.stream.Collectors;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    @Transactional
-    public String createMember(MemberCreateDto memberCreate) {
-        Member member = memberRepository.save(Member.create(memberCreate.name(), memberCreate.part(), memberCreate.age()));
-        return member.getId().toString();
-    }
 
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId)

@@ -6,4 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Headers {
     public static final String MEMBER_ID = "memberId";
+    public static final String AUTHOTIZATION_HEADER = "Authorization";
 }
