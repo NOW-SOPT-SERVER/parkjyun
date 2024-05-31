@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.sopt.practice.service.dto.BlogCreateRequest;
+import org.sopt.practice.service.dto.request.BlogCreateRequest;
 
 @Entity
 @Getter

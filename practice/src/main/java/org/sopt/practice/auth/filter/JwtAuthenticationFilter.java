@@ -1,4 +1,4 @@
-package org.sopt.practice.auth;
+package org.sopt.practice.auth.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -7,9 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.sopt.practice.common.dto.ErrorMessage;
-import org.sopt.practice.common.jwt.JwtTokenProvider;
-import org.sopt.practice.exception.UnauthorizedException;
+import org.sopt.practice.auth.UserAuthentication;
+import org.sopt.practice.service.jwt.JwtTokenProvider;
+import org.sopt.practice.exception.BusinessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-import static org.sopt.practice.common.jwt.JwtValidationType.VALID_JWT;
+import static org.sopt.practice.service.jwt.JwtValidationType.VALID_ACCESS;
 
 @Component
 @RequiredArgsConstructor
@@ -34,12 +34,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
         final String token = getJwtFromRequest(request);
-        if (jwtTokenProvider.validateToken(token) == VALID_JWT) {//유효하다면 authentication 등록
-            Long memberId = jwtTokenProvider.getUserFromJwt(token);
-            UserAuthentication authentication = UserAuthentication.createUserAuthentication(memberId);
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        try {
+            if (jwtTokenProvider.validateToken(token) == VALID_ACCESS) {//유효하다면 authentication 등록
+                Long memberId = jwtTokenProvider.getUserFromJwt(token);
+                UserAuthentication authentication = UserAuthentication.createUserAuthentication(memberId);
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        } catch (BusinessException e) {
+            request.setAttribute("errorMessage", e.getErrorMessage());
         }
+
         filterChain.doFilter(request, response);
     }
 

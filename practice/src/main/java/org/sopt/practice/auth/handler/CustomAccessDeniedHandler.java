@@ -1,4 +1,4 @@
-package org.sopt.practice.auth.filter;
+package org.sopt.practice.auth.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

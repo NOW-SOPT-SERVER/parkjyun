@@ -1,8 +1,9 @@
-package org.sopt.practice.auth;
+package org.sopt.practice.auth.config;
 
 import lombok.RequiredArgsConstructor;
-import org.sopt.practice.auth.filter.CustomAccessDeniedHandler;
-import org.sopt.practice.auth.filter.CustomJwtAuthenticationEntryPoint;
+import org.sopt.practice.auth.filter.JwtAuthenticationFilter;
+import org.sopt.practice.auth.handler.CustomAccessDeniedHandler;
+import org.sopt.practice.auth.handler.CustomJwtAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +22,7 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
 
-    private static final String[] AUTH_WHITE_LIST = {"/api/v1/members"};
+    private static final String[] AUTH_WHITE_LIST = {"/api/v1/login", "/api/v1/reissue"};
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

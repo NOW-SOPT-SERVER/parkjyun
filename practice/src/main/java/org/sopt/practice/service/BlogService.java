@@ -2,13 +2,12 @@ package org.sopt.practice.service;
 
 import lombok.RequiredArgsConstructor;
 import org.sopt.practice.common.dto.ErrorMessage;
-import org.sopt.practice.common.dto.SuccessStatusResponse;
 import org.sopt.practice.entity.Blog;
 import org.sopt.practice.entity.Member;
 import org.sopt.practice.exception.NotFoundException;
 import org.sopt.practice.repository.BlogRepository;
-import org.sopt.practice.service.dto.BlogCreateRequest;
-import org.sopt.practice.service.dto.BlogTitleUpdateRequest;
+import org.sopt.practice.service.dto.request.BlogCreateRequest;
+import org.sopt.practice.service.dto.request.BlogTitleUpdateRequest;
 import org.sopt.practice.service.dto.response.BlogResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

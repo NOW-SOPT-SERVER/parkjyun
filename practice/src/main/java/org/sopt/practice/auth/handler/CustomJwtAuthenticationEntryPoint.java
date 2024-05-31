@@ -1,4 +1,4 @@
-package org.sopt.practice.auth.filter;
+package org.sopt.practice.auth.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sopt.practice.common.dto.ErrorMessage;
 import org.sopt.practice.common.dto.ErrorResponse;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -24,15 +23,23 @@ public class CustomJwtAuthenticationEntryPoint implements AuthenticationEntryPoi
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         log.error("Unauthorized error: {}", authException.getMessage());
-        setResponse(response);
+        ErrorMessage errorMessage = (ErrorMessage) request.getAttribute("errorMessage");
+        setResponse(response, errorMessage);
     }
 
-    private void setResponse(HttpServletResponse response) throws IOException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    private void setResponse(HttpServletResponse response, ErrorMessage errorMessage) throws IOException {
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter()
-                .write(objectMapper.writeValueAsString(
-                        ErrorResponse.of(ErrorMessage.JWT_UNAUTHORIZED)));
+        response.setStatus(errorMessage.getStatus());
+
+        response.getWriter().write(objectMapper.writeValueAsString(ErrorResponse.of(errorMessage)));
     }
+//    private void setResponse(HttpServletResponse response) throws IOException {
+//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+//        response.setCharacterEncoding("UTF-8");
+//        response.getWriter()
+//                .write(objectMapper.writeValueAsString(
+//                        ErrorResponse.of(ErrorMessage.JWT_UNAUTHORIZED)));
+//    }
 }

@@ -19,13 +19,6 @@ public class Member {
 
     private int age;
 
-    @Builder
-    private Member(String name, Part part, int age) {
-        this.name = name;
-        this.part = part;
-        this.age = age;
-    }
-
     public static Member create(String name, Part part, int age) {
         return Member.builder()
                 .name(name)
@@ -33,5 +26,12 @@ public class Member {
                 .age(age)
                 .build();
 
+    }
+
+    @Builder
+    private Member(String name, Part part, int age) {
+        this.name = name;
+        this.part = part;
+        this.age = age;
     }
 }
