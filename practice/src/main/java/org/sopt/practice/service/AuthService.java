@@ -72,10 +72,10 @@ public class AuthService {
 
         Member member;
 
-        if(!isExistMember(memberCreate)) {
+        if (!isExistMember(memberCreate)) {
             member = memberHelper.saveMember(Member.create(memberCreate.name(), memberCreate.part(), memberCreate.age()));
         } else {
-           member = memberHelper.findByNameAndPartAndAge(memberCreate.name(), memberCreate.part(), memberCreate.age());
+            member = memberHelper.findByNameAndPartAndAge(memberCreate.name(), memberCreate.part(), memberCreate.age());
         }
         return member;
     }

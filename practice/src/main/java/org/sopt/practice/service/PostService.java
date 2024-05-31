@@ -22,7 +22,7 @@ public class PostService {
     @Transactional
     public String createPost(final CreatePostRequest createPostRequest, final Long blogId, final Long memberId) {
         Blog blog = blogService.findById(blogId);
-        if(!blogService.isBlogOwner(blogId, memberId)) throw new ForbiddenException(ErrorMessage.MEMBER_FORBIDDEN);
+        if (!blogService.isBlogOwner(blogId, memberId)) throw new ForbiddenException(ErrorMessage.MEMBER_FORBIDDEN);
         return postRespository.save(Post.of(createPostRequest, blog)).getId().toString();
     }
 

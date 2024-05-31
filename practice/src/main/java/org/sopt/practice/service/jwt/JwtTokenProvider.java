@@ -30,7 +30,7 @@ public class JwtTokenProvider implements InitializingBean {
     private Key key;
 
     @Override
-    public void afterPropertiesSet() throws Exception {//스프링빈의 모든 속성이 설정된 후에 실행될 초기화 로직
+    public void afterPropertiesSet() throws Exception {
         byte[] keyBytes = Decoders.BASE64.decode(JWT_SECRET);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -81,7 +81,7 @@ public class JwtTokenProvider implements InitializingBean {
         final Date now = new Date();
         final Claims claims = Jwts.claims()
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenExpirationTime));      // 만료 시간
+                .setExpiration(new Date(now.getTime() + tokenExpirationTime));
         claims.put(USER_ID, authentication.getPrincipal());
 
         switch (tokenType) {
@@ -94,10 +94,9 @@ public class JwtTokenProvider implements InitializingBean {
         }
 
         return Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE) // Header
-                .setClaims(claims) // Claim
-                .signWith(key, SignatureAlgorithm.HS512) // Signature
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setClaims(claims)
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
-
 }

@@ -34,12 +34,4 @@ public class CustomJwtAuthenticationEntryPoint implements AuthenticationEntryPoi
 
         response.getWriter().write(objectMapper.writeValueAsString(ErrorResponse.of(errorMessage)));
     }
-//    private void setResponse(HttpServletResponse response) throws IOException {
-//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//        response.setCharacterEncoding("UTF-8");
-//        response.getWriter()
-//                .write(objectMapper.writeValueAsString(
-//                        ErrorResponse.of(ErrorMessage.JWT_UNAUTHORIZED)));
-//    }
 }
